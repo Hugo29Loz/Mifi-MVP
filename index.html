@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIFI - Transforma tu Relación con el Dinero</title>
+    <!-- Tailwind CSS v3 (Estable para prototipado dinámico) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #FAF8F5; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-sans text-slate-900 selection:bg-amber-200 antialiased">
+
+    <!-- NAVBAR PRINCIPAL -->
+    <header class="bg-[#FCFBF9]/90 backdrop-blur-md border-b border-stone-200/60 sticky top-0 z-50 transition-all">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div onclick="mostrarLanding()" class="flex items-center gap-2.5 cursor-pointer group">
+                <div class="bg-[#0A192F] text-amber-50 p-2.5 rounded-2xl group-hover:bg-emerald-600 transition-colors shadow-xs">
+                    <i data-lucide="wallet-cards" class="w-6 h-6"></i>
+                </div>
+                <span class="text-2xl font-black text-[#0A192F] tracking-tight">MIFI</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="irA('modulos-seccion')" class="text-stone-600 hover:text-[#0A192F] text-sm font-bold px-4 py-2 rounded-xl transition-all cursor-pointer">📚 Cursos</button>
+                <button onclick="irA('simulador-seccion')" class="bg-[#0A192F] hover:bg-[#1E3A5F] text-amber-50 text-sm font-bold px-5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5">
+                    <span>Probar Simulador</span>
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-amber-50"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- LANDING PAGE -->
+    <div id="landing-page" class="block">
+        <section class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center space-y-8">
+            <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-full shadow-xs">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                El primer entrenador financiero conductual
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-[#0A192F] tracking-tight max-w-4xl mx-auto leading-[1.1]">
+                Aprende a dominar tu dinero <br class="hidden sm:block">
+                <span class="text-emerald-600">jugando y sin tecnicismos</span>
+            </h1>
+            <p class="text-stone-600 text-base sm:text-lg max-w-2xl mx-auto">
+                MIFI elimina las aburridas hojas de cálculo. Equivócate con escenarios simulados y descubre tu verdadero perfil conductual antes de salir al mercado real.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+                <button onclick="irA('simulador-seccion')" class="w-full sm:w-auto bg-[#0A192F] hover:bg-[#1E3A5F] text-amber-50 font-bold px-8 py-4 rounded-2xl shadow-xl transition-all cursor-pointer text-base flex items-center justify-center gap-2">
+                    <span>Entrar al Simulador Virtual</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+                <button onclick="irA('modulos-seccion')" class="w-full sm:w-auto bg-[#FCFBF9] hover:bg-stone-100 text-stone-800 border border-stone-300 font-bold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base">
+                    Ver Temas de Aprendizaje
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- SECCIONES INTERACTIVAS DE LA APP -->
+    <div id="interactive-app" class="max-w-4xl mx-auto px-6 py-4 space-y-16">
+
+        <!-- SECCIÓN: SIMULADOR DE VIDA -->
+        <section id="simulador-seccion" class="space-y-6 scroll-mt-24">
+            <div class="border-b border-stone-200 pb-4">
+                <h2 class="text-2xl font-black text-[#0A192F] flex items-center gap-2">
+                    <span class="bg-amber-100 text-amber-800 p-1.5 rounded-xl text-sm font-bold">🎮 MVP</span>
+                    Simulador de Vida Financiera
+                </h2>
+                <p class="text-stone-500 text-sm mt-1">Toma decisiones en situaciones cotidianas y descubre tu rango financiero.</p>
+            </div>
+
+            <!-- Tablero de Métricas -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-[#FCFBF9] p-5 rounded-2xl border border-stone-200/60 flex items-center gap-4">
+                    <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><i data-lucide="circle-dollar-sign"></i></div>
+                    <div>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Dinero Disponible</p>
+                        <p id="sim-dinero" class="text-xl font-black text-stone-900">$1,200</p>
+                    </div>
+                </div>
+                <div class="bg-[#FCFBF9] p-5 rounded-2xl border border-stone-200/60 flex items-center gap-4">
+                    <div class="p-3 bg-amber-50 text-amber-600 rounded-xl"><i data-lucide="sparkles"></i></div>
+                    <div>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Salud Crediticia</p>
+                        <p id="sim-score" class="text-xl font-black text-stone-900">650 pts</p>
+                    </div>
+                </div>
+                <div class="bg-[#FCFBF9] p-5 rounded-2xl border border-stone-200/60 flex items-center gap-4">
+                    <div class="p-3 bg-rose-50 text-rose-600 rounded-xl"><i data-lucide="smile"></i></div>
+                    <div>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Nivel de Estrés</p>
+                        <p id="sim-estres" class="text-xl font-black text-stone-900">Bajo 😴</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caja del Juego -->
+            <div class="bg-[#FCFBF9] border border-stone-200/60 rounded-3xl p-6 md:p-8 shadow-sm">
+                <div id="juego-cuerpo">
+                    <div class="flex items-center gap-1.5 text-emerald-600 font-bold text-xs uppercase tracking-wider mb-3">
+                        <i data-lucide="dices" class="w-4 h-4"></i>
+                        <span>Situación <span id="num-escenario">1</span> de 3</span>
+                    </div>
+                    <h3 id="titulo-escenario" class="text-lg font-bold text-[#0A192F] mb-5">Cargando...</h3>
+                    <div class="grid grid-cols-1 gap-3" id="opciones-contenedor"></div>
+                </div>
+                
+                <!-- Fin del juego -->
+                <div id="juego-final" class="hidden text-center py-6 space-y-6">
+                    <div class="w-16 h-16 bg-amber-50 border border-amber-200 text-amber-600 rounded-full flex items-center justify-center mx-auto">
+                        <i data-lucide="medal" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-widest text-emerald-600">Tu Rango Financiero Obtenido</p>
+                        <h3 id="rango-financiero" class="text-2xl font-black text-[#0A192F] mt-1">Cargando rango...</h3>
+                    </div>
+                    <p id="resultado-analisis" class="text-stone-600 text-sm max-w-md mx-auto leading-relaxed"></p>
+                    
+                    <div class="pt-2 flex flex-col justify-center items-center gap-3">
+                        <button onclick="toggleFeedback('sim-feedback-box')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4"></i> Ver Reporte de Respuestas y Explicación
+                        </button>
+                        <button onclick="reiniciarJuego()" class="text-stone-500 hover:text-stone-800 text-xs font-bold underline cursor-pointer">Volver a simular</button>
+                    </div>
+
+                    <!-- Caja Oculta de Feedback Diferido -->
+                    <div id="sim-feedback-box" class="hidden text-left bg-stone-50 p-6 rounded-2xl border border-stone-200/80 space-y-4 max-w-2xl mx-auto mt-4">
+                        <h4 class="font-bold text-[#0A192F] text-sm border-b border-stone-200 pb-2 flex items-center gap-1.5"><i data-lucide="book-open" class="w-4 h-4"></i> Análisis de tus elecciones:</h4>
+                        <div id="sim-feedback-lista" class="space-y-4 divide-y divide-stone-200/60 text-xs"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: MÓDULOS DE APRENDIZAJE -->
+        <section id="modulos-seccion" class="space-y-6 scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black text-[#0A192F] flex items-center gap-2">
+                        <span class="bg-emerald-100 text-emerald-800 p-1.5 rounded-xl text-sm font-bold">📚 Temas</span>
+                        Educación sin complicaciones
+                    </h2>
+                    <p class="text-stone-500 text-sm mt-1">Estudia los conceptos y valida tu nivel con las trivias diferidas.</p>
+                </div>
+                <div class="flex gap-1 bg-stone-200/70 p-1 rounded-xl self-start">
+                    <button onclick="switchModulo('presupuesto')" id="mod-btn-presupuesto" class="mod-btn text-xs font-bold px-3 py-2 rounded-lg bg-[#FCFBF9] text-[#0A192F] shadow-sm cursor-pointer">💰 Presupuesto</button>
+                    <button onclick="switchModulo('ahorro')" id="mod-btn-ahorro" class="mod-btn text-xs font-bold px-3 py-2 rounded-lg text-stone-600 cursor-pointer">🏦 Ahorro</button>
+                    <button onclick="switchModulo('credito')" id="mod-btn-credito" class="mod-btn text-xs font-bold px-3 py-2 rounded-lg text-stone-600 cursor-pointer">💳 Créditos</button>
+                </div>
+            </div>
+
+            <div class="bg-[#FCFBF9] border border-stone-200/60 rounded-3xl p-6 md:p-8 shadow-sm">
+                <!-- CONTENEDOR DINÁMICO PARA LECCIÓN -->
+                <div id="modulo-leccion-cuerpo">
+                    <!-- Inyección de texto y videos vía JS -->
+                </div>
+
+                <!-- SECCIÓN DE TRIVIA INTEGRADA EN EL MÓDULO -->
+                <div class="border-t border-stone-200 mt-8 pt-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-black text-[#0A192F] uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> Mini Trivia de Avance
+                        </h4>
+                        <span class="text-xs font-bold text-stone-500" id="trivia-progreso-txt">Pregunta 1 de 3</span>
+                    </div>
+                    
+                    <div id="trivia-juego-cuerpo">
+                        <p id="trivia-pregunta-txt" class="text-xs md:text-sm font-medium text-stone-800 mb-4">Cargando pregunta...</p>
+                        <div id="trivia-opciones-container" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Resultados de la Trivia -->
+                    <div id="trivia-resultado-cuerpo" class="hidden text-center py-4 space-y-4">
+                        <div class="text-sm font-bold text-stone-800">
+                            Evaluación terminada. Calificación: <span id="trivia-calificacion-rango" class="text-emerald-600 font-black"></span>
+                        </div>
+                        <p class="text-xs text-stone-500">Respondiste correctamente <span id="trivia-buenas-cont">0</span> de 3 preguntas.</p>
+                        
+                        <div class="flex flex-col items-center gap-2">
+                            <button onclick="toggleFeedback('trivia-feedback-box')" class="bg-[#0A192F] hover:bg-slate-800 text-amber-50 text-xs font-bold px-5 py-2.5 rounded-xl cursor-pointer flex items-center gap-1.5">
+                                <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Ver Explicación de cada pregunta
+                            </button>
+                            <button onclick="reiniciarTriviaActual()" class="text-xs text-stone-400 underline cursor-pointer">Repetir evaluación</button>
+                        </div>
+
+                        <!-- Feedback Diferido de la Trivia -->
+                        <div id="trivia-feedback-box" class="hidden text-left bg-stone-50 p-5 rounded-2xl border border-stone-200 space-y-3 text-xs max-w-xl mx-auto mt-4">
+                            <div id="trivia-feedback-lista" class="space-y-3 divide-y divide-stone-200/60 pt-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-stone-200 bg-[#FCFBF9] py-10 mt-12 text-center text-xs text-stone-500">
+        <p class="font-bold text-[#0A192F] text-sm mb-1">MIFI MVP</p>
+        <p>Diseñado para sustentación académica y validación conductual comercial.</p>
+    </footer>
+
+    <!-- LÓGICA DE CONTROL JAVASCRIPT -->
+    <script>
+        // DATA GLOBAL DE LOS MÓDULOS DE APRENDIZAJE
+        const modulosData = {
+            presupuesto: {
+                titulo: "El Presupuesto: Tu mapa de poder",
+                concepto: "Hacer un presupuesto no es amarrarte las manos, es decidir conscientemente a dónde irá cada moneda antes de gastarla, permitiéndote disfrutar de tu dinero libre sin culpas.",
+                ejemplo: "Separar tus ingresos con la regla 50/30/20 apenas cobras: 50% necesidades (alquiler, comida), 30% gustos libres (cine, salidas) y 20% ahorro programado.",
+                video: "Video Animado: '¿A dónde va el dinero fantasma?'",
+                preguntas: [
+                    { q: "¿Cuál es la verdadera finalidad de planificar un presupuesto mensual?", o: ["A) Eliminar drásticamente toda salida y diversión.", "B) Conocer y dominar tus flujos de dinero para gastar con inteligencia.", "C) Acumular dinero debajo del colchón sin invertir."], c: 1, exp: "El presupuesto busca darte el control de tus consumos cotidianos, permitiendo que gastes en ocio sin endeudarte." },
+                    { q: "Si recibes un dinero extra por un trabajo independiente, ¿qué dicta una buena conducta financiera?", o: ["A) Gastarlo todo de inmediato antes de que termine el fin de semana.", "B) Ignorarlo por completo.", "C) Registrarlo en tu mapa de ingresos y asignarle una meta clara (ahorro o pago de deuda)."], c: 2, exp: "Todo ingreso debe pasar por tu planificación para maximizar su impacto positivo en tu estabilidad." },
+                    { q: "Dentro de la regla 50/30/20, ¿a qué categoría corresponde el pago del servicio de luz e internet fijo?", o: ["A) Necesidades fijas u obligaciones básicas.", "B) Entretenimiento y gastos variables.", "C) Inversiones de alto riesgo."], c: 0, exp: "Los servicios del hogar son consumos básicos indispensables para vivir y trabajar." }
+                ]
+            },
+            ahorro: {
+                titulo: "Págate a ti mismo primero",
+                concepto: "Si dejas el ahorro para ver qué te sobra a fin de mes, la respuesta siempre será cero. El secreto es automatizar o separar una parte pequeña apenas recibes un ingreso.",
+                ejemplo: "Tener un fondo de emergencia equivalente a un mes de tus gastos básicos. Si tu herramienta de estudio o trabajo se daña, lo resuelves sin estrés ni préstamos caros.",
+                video: "Video Animado: 'Cómo construir un colchón de paz financiera'",
+                preguntas: [
+                    { q: "¿Qué significa la estrategia conductual 'Págate a ti mismo primero'?", o: ["A) Ir de compras apenas cobras el sueldo.", "B) Separar un porcentaje fijo de ahorro apenas entra el dinero, antes de consumir.", "C) Cancelar únicamente las deudas que tengan intereses elevados."], c: 1, exp: "Al priorizar tu ahorro al inicio del mes, garantizas el hábito sin depender de la fuerza de voluntad al final." },
+                    { q: "¿Cuál es el propósito principal de consolidar un Fondo de Emergencia?", o: ["A) Financiar las próximas vacaciones de verano.", "B) Cubrir imprevistos reales (salud, averías) sin romper tu presupuesto ni pedir créditos.", "C) Comprar acciones volátiles en la bolsa."], c: 2, exp: "Este fondo actúa como un colchón de seguridad que protege tu historial de deudas ante accidentes." },
+                    { q: "Si deseas ahorrar en una cuenta de ahorros regulada frente a guardar efectivo en casa, ¿qué obtienes?", o: ["A) Ninguno, es exactamente igual.", "B) Mayor seguridad ante pérdidas físicas y acumulación de pequeños intereses por tasa pasiva.", "C) Permite duplicar el dinero de manera garantizada cada semana."], c: 1, exp: "El sistema financiero formal protege tus fondos contra robos y te ofrece herramientas de control digital." }
+                ]
+            },
+            credito: {
+                titulo: "El Crédito: El valor de tu reputación",
+                concepto: "Las tarjetas de crédito no son dinero extra ni extensiones de tus ingresos. Son herramientas para construir una buena reputación frente al sistema bancario.",
+                ejemplo: "Pagar el 100% de tus consumos antes de la fecha límite de pago mensual. Esto te convierte en un usuario 'totalero', acumulando un score perfecto con cero intereses.",
+                video: "Video Animado: 'Apalancamiento estratégico vs Endeudamiento impulsivo'",
+                preguntas: [
+                    { q: "¿Qué describe a un consumidor con comportamiento Financiero 'Totalero'?", o: ["A) Alguien que paga el monto mínimo del estado de cuenta de su tarjeta.", "B) Alguien que paga el monto total facturado del mes antes de la fecha límite, evitando regalar intereses.", "C) Alguien que retira todo el efectivo disponible de los cajeros automáticos."], c: 1, exp: "Ser totalero te permite financiarte gratis hasta por 45 días usando el dinero del banco sin pagar penalidades." },
+                    { q: "¿Qué elemento afecta negativamente tu Score o Salud Crediticia ante las centrales de riesgo?", o: ["A) Pagar tus cuotas con 3 días de anticipación.", "B) Tener múltiples cuentas de ahorro sin deudas activas.", "C) Retrasarte constantemente en las fechas límites de pago de tus obligaciones."], c: 2, exp: "La puntualidad es la variable con mayor peso en el análisis de riesgo. El retraso daña tu confianza comercial." },
+                    { q: "Si deseas adquirir una laptop para trabajar, ¿cuál es el uso más inteligente de un crédito?", o: ["A) Financiarla a 36 cuotas fijas dejando que el interés duplique su valor real.", "B) Evaluar tu capacidad de pago y elegir cuotas cortas o financiamiento sin intereses si tu presupuesto lo soporta.", "C) No revisar las condiciones de tasa de interés (TEA)."], c: 1, exp: "El crédito inteligente calcula el impacto de las cuotas en tu flujo de caja mensual para no sobreendeudarte." }
+                ]
+            }
+        };
+
+        // ESTADOS DE LA APLICACIÓN
+        let currentModulo = 'presupuesto';
+        let triviaState = { paso: 0, correctas: 0, respuestasUsuario: [] };
+        let gameState = { dinero: 1200, score: 650, estres: 0, paso: 0, respuestas: [] };
+
+        // ESCENARIOS DEL SIMULADOR DE VIDA
+        const escenarios = [
+            {
+                titulo: "Es viernes por la noche y te invitan a una cena grupal en un restaurante caro, pero ya superaste tu presupuesto de ocio asignado para este mes. ¿Qué haces?",
+                opciones: [
+                    { texto: "A) Ir de todas formas y financiarlo con la Tarjeta de Crédito.", dinero: -100, score: -25, estres: 20, exp: "Mala práctica conductual. Financiar ocio corriente con crédito genera deudas de consumo innecesarias." },
+                    { texto: "B) Quedarte en casa cenando algo ligero y cuidar tu plan original.", dinero: 0, score: 0, estres: 10, exp: "Buena disciplina. Proteges tu dinero disponible, aunque acumulas un mínimo de frustración social controlable." },
+                    { texto: "C) Proponer un plan mucho más amigable (ej. unas pizzas compartidas en casa).", dinero: -20, score: 20, estres: 0, exp: "Excelente negociación conductual. Mantienes la interacción social activa sin descuidar tus límites de caja." }
+                ]
+            },
+            {
+                titulo: "Tu teléfono móvil sufre una avería grave de imprevisto y lo necesitas obligatoriamente para estudiar o trabajar. ¿Cómo lo solucionas?",
+                opciones: [
+                    { texto: "A) Comprar el último smartphone del mercado en 24 cuotas con altos intereses.", dinero: -50, score: -35, estres: 35, exp: "Gasto impulsivo. Convertir una emergencia funcional en una deuda de lujo a largo plazo afecta severamente tu flujo mensual." },
+                    { texto: "B) Comprar un smartphone de gama media al contado usando tu dinero de reserva.", dinero: -350, score: 25, estres: 15, exp: "Uso correcto del ahorro. Para esto sirve un fondo de reserva, resuelves el problema al contado sin regalar intereses." },
+                    { texto: "C) Llevarlo a reparar para solucionar la falla específica y aguantar unos meses más.", dinero: -60, score: 15, estres: 5, exp: "Decisión prudente y austera. Extiendes la vida útil de tu bien optimizando tus recursos inmediatos." }
+                ]
+            },
+            {
+                titulo: "Consigues un dinero extra totalmente inesperado ($200) gracias a una asesoría de fin de semana. ¿A dónde lo envías?",
+                opciones: [
+                    { texto: "A) ¡A disfrutar! Comprar ropa o darte un gusto que querías hace tiempo.", dinero: 200, gastarTodo: true, score: 0, estres: 0, exp: "Sesgo de gratificación inmediata. Gastar los ingresos extraordinarios sin planificarlos frena tu crecimiento." },
+                    { texto: "B) Destinarlo completo a tu Fondo de Emergencias para imprevistos.", dinero: 200, score: 45, estres: -20, exp: "Enfoque en seguridad. Aumentas tu colchón financiero, reduciendo la vulnerabilidad ante futuros imprevistos." },
+                    { texto: "C) Utilizarlo para pagar esa pequeña deudita que te venía quitando el sueño.", dinero: 0, score: 50, estres: -30, exp: "Estrategia de desapalancamiento. Eliminar pasivos de corto plazo es la mejor inversión para recuperar tranquilidad mental." }
+                ]
+            }
+        ];
+
+        // INICIALIZACIÓN INMEDIATA (Previene bloqueos del navegador)
+        function inicializarTodo() {
+            renderEscenario();
+            switchModulo('presupuesto');
+            try { if (window.lucide) lucide.createIcons(); } catch (e) {}
+        }
+
+        // Ejecutar inmediatamente si el DOM ya cargó, o esperar el evento de respaldo
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            inicializarTodo();
+        } else {
+            window.addEventListener('DOMContentLoaded', inicializarTodo);
+        }
+
+        function irA(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function mostrarLanding() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(id) {
+            const box = document.getElementById(id);
+            if (box) box.classList.toggle('hidden');
+        }
+
+        // ================= CONTROL DE MÓDULOS Y TRIVIAS =================
+        function switchModulo(modId) {
+            currentModulo = modId;
+            
+            // UI Pestañas
+            document.querySelectorAll('.mod-btn').forEach(el => {
+                el.className = "mod-btn text-xs font-bold px-3 py-2 rounded-lg text-stone-600 cursor-pointer";
+            });
+            const targetBtn = document.getElementById(`mod-btn-${modId}`);
+            if (targetBtn) targetBtn.className = "mod-btn text-xs font-bold px-3 py-2 rounded-lg bg-[#FCFBF9] text-[#0A192F] shadow-sm cursor-pointer";
+
+            // Render Lección
+            const data = modulosData[modId];
+            const leccionCuerpo = document.getElementById('modulo-leccion-cuerpo');
+            leccionCuerpo.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <span class="bg-emerald-50 text-emerald-800 border border-emerald-100 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Conceptos Clave</span>
+                        <h3 class="text-lg font-bold text-[#0A192F]">${data.titulo}</h3>
+                        <p class="text-stone-600 text-xs md:text-sm leading-relaxed">${data.concepto}</p>
+                        <div class="bg-amber-50/50 p-3.5 rounded-xl border border-amber-100 text-stone-700 text-xs leading-relaxed">
+                            <strong>💡 Caso práctico:</strong> ${data.ejemplo}
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl aspect-video flex flex-col items-center justify-center text-white relative shadow-inner">
+                        <i data-lucide="play-circle" class="w-12 h-12 text-emerald-400 opacity-90 hover:scale-105 transition-transform cursor-pointer"></i>
+                        <span class="text-[11px] text-stone-400 mt-2">${data.video}</span>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+
+            // Resetear y Cargar Trivia del Módulo
+            triviaState = { paso: 0, correctas: 0, respuestasUsuario: [] };
+            document.getElementById('trivia-juego-cuerpo').classList.remove('hidden');
+            document.getElementById('trivia-resultado-cuerpo').classList.add('hidden');
+            document.getElementById('trivia-feedback-box').classList.add('hidden');
+            renderPreguntaTrivia();
+        }
+
+        function renderPreguntaTrivia() {
+            const data = modulosData[currentModulo];
+            const p = data.preguntas[triviaState.paso];
+            
+            document.getElementById('trivia-progreso-txt').innerText = `Pregunta ${triviaState.paso + 1} de 3`;
+            document.getElementById('trivia-pregunta-txt').innerText = p.q;
+            
+            const container = document.getElementById('trivia-opciones-container');
+            container.innerHTML = '';
+            
+            p.o.forEach((opcion, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3 rounded-xl border border-stone-200 text-xs hover:bg-stone-50 transition-all cursor-pointer";
+                btn.innerText = opcion;
+                btn.onclick = () => procesarRespuestaTrivia(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function procesarRespuestaTrivia(idxSeleccionado) {
+            const data = modulosData[currentModulo];
+            const p = data.preguntas[triviaState.paso];
+            
+            triviaState.respuestasUsuario.push({
+                pregunta: p.q,
+                seleccionada: p.o[idxSeleccionado],
+                correcta: p.o[p.c],
+                esCorrecta: idxSeleccionado === p.c,
+                explicacion: p.exp
+            });
+
+            if (idxSeleccionado === p.c) {
+                triviaState.correctas++;
+            }
+
+            triviaState.paso++;
+            if (triviaState.paso < data.preguntas.length) {
+                renderPreguntaTrivia();
+            } else {
+                finalizarTriviaMódulo();
+            }
+        }
+
+        function finalizarTriviaMódulo() {
+            document.getElementById('trivia-juego-cuerpo').classList.add('hidden');
+            document.getElementById('trivia-resultado-cuerpo').classList.remove('hidden');
+            
+            document.getElementById('trivia-buenas-cont').innerText = triviaState.correctas;
+            
+            let rango = "";
+            if (triviaState.correctas === 3) rango = "🥇 Analista Financiero Pro";
+            else if (triviaState.correctas === 2) rango = "🥈 Financiero en Progreso";
+            else if (triviaState.correctas === 1) rango = "🥉 Ahorrador Principiante";
+            else rango = "⚠️ Vulnerable al Mercado";
+
+            document.getElementById('trivia-calificacion-rango').innerText = rango;
+
+            const listaBox = document.getElementById('trivia-feedback-lista');
+            listaBox.innerHTML = '';
+            
+            triviaState.respuestasUsuario.forEach((r, idx) => {
+                const item = document.createElement('div');
+                item.className = "pt-3 space-y-1";
+                item.innerHTML = `
+                    <p class="font-bold text-[#0A192F]">Pregunta ${idx + 1}: ${r.pregunta}</p>
+                    <p class="${r.esCorrecta ? 'text-emerald-600' : 'text-rose-600'} font-medium">👉 Marcaste: ${r.seleccionada}</p>
+                    ${!r.esCorrecta ? `<p class="text-stone-500 font-medium">✅ Correcta: ${r.correcta}</p>` : ''}
+                    <p class="text-stone-600 bg-stone-100 p-2.5 rounded-lg mt-1 italic border-l-2 border-emerald-500"><strong>Explicación sencilla:</strong> ${r.explicacion}</p>
+                `;
+                listaBox.appendChild(item);
+            });
+        }
+
+        function reiniciarTriviaActual() {
+            switchModulo(currentModulo);
+        }
+
+        // ================= LÓGICA DEL SIMULADOR DE VIDA =================
+        function refreshDashboard() {
+            document.getElementById('sim-dinero').innerText = `$${gameState.dinero}`;
+            document.getElementById('sim-score').innerText = `${gameState.score} pts`;
+            
+            let txtEstres = "Bajo 😴";
+            let colorEstres = "text-stone-900";
+            if(gameState.estres > 40) { txtEstres = "¡Elevado! 🤯"; colorEstres = "text-rose-600"; }
+            else if(gameState.estres > 15) { txtEstres = "Moderado 😨"; colorEstres = "text-amber-600"; }
+            
+            const element = document.getElementById('sim-estres');
+            if (element) {
+                element.innerText = txtEstres;
+                element.className = `text-xl font-black ${colorEstres}`;
+            }
+        }
+
+        function renderEscenario() {
+            const container = document.getElementById('opciones-contenedor');
+            const titEscenario = document.getElementById('titulo-escenario');
+            const numEscenario = document.getElementById('num-escenario');
+
+            if (!container || !titEscenario || !numEscenario) return;
+
+            if(gameState.paso < escenarios.length) {
+                numEscenario.innerText = gameState.paso + 1;
+                titEscenario.innerText = escenarios[gameState.paso].titulo;
+                container.innerHTML = '';
+                
+                escenarios[gameState.paso].opciones.forEach((op, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-4 rounded-xl border border-stone-200 text-xs md:text-sm font-medium hover:border-[#0A192F] hover:bg-stone-50 transition-all cursor-pointer";
+                    btn.innerText = op.texto;
+                    btn.onclick = () => procesarPaso(index);
+                    container.appendChild(btn);
+                });
+            } else {
+                endGame();
+            }
+        }
+
+        function procesarPaso(index) {
+            const esc = escenarios[gameState.paso];
+            const op = esc.opciones[index];
+            
+            gameState.respuestas.push({
+                situacion: esc.titulo,
+                elegida: op.texto,
+                explicacion: op.exp
+            });
+
+            if(!op.gastarTodo) gameState.dinero += op.dinero;
+            gameState.score += op.score;
+            gameState.estres += op.estres;
+            if(gameState.estres < 0) gameState.estres = 0;
+            
+            refreshDashboard();
+            gameState.paso++;
+            renderEscenario();
+        }
+
+        function endGame() {
+            document.getElementById('juego-cuerpo').classList.add('hidden');
+            document.getElementById('juego-final').classList.remove('hidden');
+            
+            let rango = "";
+            let review = "";
+            
+            if(gameState.score >= 700 && gameState.estres <= 20) {
+                rango = "🦅 Inversionista Estratégico Equilibrado";
+                review = "Dominas a la perfección tus impulsos conductuales. Logras proteger tu salud crediticia y liquidez sin disparar tus niveles de estrés.";
+            } else if(gameState.score < 600 || gameState.estres >= 40) {
+                rango = "🚒 Sofocador de Incendios Financieros";
+                review = "Sueles recurrir a parches de emergencia y endeudamiento de consumo rápido. Estás pagando altos costos ocultos en intereses y tranquilidad.";
+            } else {
+                rango = "🪵 Gestor Tradicional en Progreso";
+                review = "Tienes nociones saludables de control, pero tus decisiones ante imprevistos siguen tambaleando. MIFI te ayudará a estructurar un escudo automático.";
+            }
+
+            document.getElementById('rango-financiero').innerText = rango;
+            document.getElementById('resultado-analisis').innerText = review;
+
+            const listaFeedback = document.getElementById('sim-feedback-lista');
+            listaFeedback.innerHTML = '';
+            gameState.respuestas.forEach((r, idx) => {
+                const item = document.createElement('div');
+                item.className = "pt-3 space-y-1";
+                item.innerHTML = `
+                    <p class="font-bold text-[#0A192F]">Caso ${idx + 1}: ${r.situacion}</p>
+                    <p class="text-emerald-700 font-medium">👉 Tu elección: ${r.elegida}</p>
+                    <p class="text-stone-600 bg-stone-100 p-2.5 rounded-lg mt-1 italic border-l-2 border-amber-500"><strong>Impacto real:</strong> ${r.explicacion}</p>
+                `;
+                listaFeedback.appendChild(item);
+            });
+        }
+
+        function reiniciarJuego() {
+            gameState = { dinero: 1200, score: 650, estres: 0, paso: 0, respuestas: [] };
+            refreshDashboard();
+            document.getElementById('juego-cuerpo').classList.remove('hidden');
+            document.getElementById('juego-final').classList.add('hidden');
+            document.getElementById('sim-feedback-box').classList.add('hidden');
+            renderEscenario();
+        }
+    </script>
+</body>
+</html>
